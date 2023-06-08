@@ -6,9 +6,9 @@ const Todos = () => {
   // useState: quan ly trang thai cua comp
   //khoi tao state
   const [todos, setTodos] = useState([
-    { id: 1, title: "Viec 1" },
-    { id: 2, title: "Viec 2" },
-    { id: 3, title: "Viec 3" },
+    { id: "a1", title: "Viec 1" },
+    { id: "a2", title: "Viec 2" },
+    { id: "a3", title: "Viec 3" },
   ]);
 
   const addTodo = (todo) => {
@@ -26,7 +26,8 @@ const Todos = () => {
       <ul>
         {/* thuong dua render <li> thanh component con; han che render lai nhieu noi dung - tang performance */}
         {todos.map((todo) => (
-          <TodoItem todo={todo} deleteTodo={deleteTodo} />
+          // console.log(`>>check Todo - id: `,todo.id);
+          <TodoItem key={todo.id} todo={todo} deleteTodo={deleteTodo} />
         ))}
       </ul>
     </div>

@@ -1,10 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
+import { ThemeContext } from "../contexts/ThemeContext";
 
 const Navbar = () => {
-const style={
-  background:'rgb(240,240,240)',
-  color:'black'
-}
+  const theme = useContext(ThemeContext);
+  const { isLightTheme, light, dark } = theme.theme;
+  // console.log(`>> check theme`, theme.theme.dark);
+  // let isLightTheme = theme.isLightTheme;
+  // let light = theme.light;
+  // let dark = theme.dark;
+  // const style = {
+  //   background: "rgb(240,240,240)",
+  //   color: "black",
+  // };
+
+  const style = isLightTheme ? light : dark;
 
   return (
     <>
