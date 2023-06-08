@@ -1,19 +1,13 @@
 import React, { useContext } from "react";
 import { ThemeContext } from "../contexts/ThemeContext";
+import { AuthContext } from "../contexts/AuthContext";
 
 const Navbar = () => {
   const theme = useContext(ThemeContext);
   const { isLightTheme, light, dark } = theme.theme;
-  // console.log(`>> check theme`, theme.theme.dark);
-  // let isLightTheme = theme.isLightTheme;
-  // let light = theme.light;
-  // let dark = theme.dark;
-  // const style = {
-  //   background: "rgb(240,240,240)",
-  //   color: "black",
-  // };
-
   const style = isLightTheme ? light : dark;
+  // load Authcontext
+  const { isAuthenticated, toggleAuth } = useContext(AuthContext);
 
   return (
     <>
@@ -22,6 +16,12 @@ const Navbar = () => {
         <ul>
           <li>Home</li>
           <li>About</li>
+          <li>
+            {isAuthenticated ? "You are logged in " : ""}
+            <button onClick={toggleAuth}>
+              {isAuthenticated ? "Logout" : "Login"}
+            </button>
+          </li>
         </ul>
       </div>
     </>
