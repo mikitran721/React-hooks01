@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { ThemeContext } from "../contexts/ThemeContext";
 import { TodoContext } from "../contexts/TodoContext";
 import { v4 as uuidv4 } from "uuid";
+import { ADD_TODO } from "../reducers/types";
 
 const TodoForm = () => {
   // state
@@ -10,19 +11,23 @@ const TodoForm = () => {
   const onTileChange = (event) => {
     setTile(event.target.value);
   };
-  // load TodoContext
-  const { addTodo } = useContext(TodoContext);
+
   // load context
   const theme = useContext(ThemeContext);
   const { isLightTheme, light, dark } = theme.theme;
   const style = isLightTheme ? light : dark;
 
+  // load TodoContext
+  const { dispatch } = useContext(TodoContext);
+
   const handleSubmit = (event) => {
     // tranh submit default
     event.preventDefault();
-    addTodo({
-      id: uuidv4(),
-      title,
+    dispatch({
+      type: ADD_TODO,
+      payload: {
+        todo: { id: uuidv4(), title },
+      },
     });
     setTile("");
   };

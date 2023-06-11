@@ -1,15 +1,16 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useEffect, useReducer } from "react";
+import todoReducer from "../reducers/TodoReducer";
 
 export const TodoContext = createContext();
 
 const TodoContextProvider = ({ children }) => {
   //khoi tao state
-  const [todos, setTodos] = useState([
-    // { id: "a1", title: "di cho" },
-    // { id: "a2", title: "nau an" },
-    // { id: "a3", title: "Giat do" },
-    // { id: "a4", title: "Rua bat" },
-  ]);
+  // const [todos, setTodos] = useState([
+  //   // { id: "a1", title: "di cho" },
+  //   // { id: "a2", title: "nau an" },
+  //   // { id: "a3", title: "Giat do" },
+  //   // { id: "a4", title: "Rua bat" },
+  // ]);
 
   // useEffect tham so vao la 1 func; chay moi khi todos thay doi
   /**
@@ -18,33 +19,37 @@ const TodoContextProvider = ({ children }) => {
    * Local storage chi nhan string;
    */
 
+  //kb gom: kho - sate
+  const [todos, dispatch] = useReducer(todoReducer, []);
+
   useEffect(() => {
-    console.log(`getting todos`);
-    const todos = localStorage.getItem("todos");
-    if (todos) setTodos(JSON.parse(todos));
-    // React luon
+    dispatch({
+      type: "GET_TODOS",
+      payload: null,
+    });
   }, []);
 
   useEffect(() => {
-    console.log(`saving todos`);
-    localStorage.setItem("todos", JSON.stringify(todos));
+    dispatch({
+      type: "SAVE_TODOS",
+      payload: { todos },
+    });
   }, [todos]);
 
-  // functions
-  const addTodo = (todo) => {
-    setTodos([...todos, todo]);
-  };
+  // // functions
+  // const addTodo = (todo) => {
+  //   setTodos([...todos, todo]);
+  // };
 
-  // ham xoa todo
-  const deleteTodo = (id) => {
-    setTodos(todos.filter((todo) => todo.id !== id));
-  };
+  // // ham xoa todo
+  // const deleteTodo = (id) => {
+  //   setTodos(todos.filter((todo) => todo.id !== id));
+  // };
 
   //   context data
   const todoContextData = {
     todos,
-    addTodo,
-    deleteTodo,
+    dispatch,
   };
 
   //return provider

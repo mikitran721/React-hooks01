@@ -2,6 +2,8 @@ import React, { useContext } from "react";
 import { ThemeContext } from "../contexts/ThemeContext";
 import { TodoContext } from "../contexts/TodoContext";
 
+import { DELETE_TODO } from "../reducers/types";
+
 // dung destructuring props sang todo; khong can viet prop nua
 //   const todo = props.todo;
 //   todo duoc gan tu tham so dau vao, nen sd luon
@@ -13,14 +15,22 @@ const TodoItem = ({ todo }) => {
   const style = isLightTheme ? light : dark;
 
   // todocontext
-  const { deleteTodo } = useContext(TodoContext);
+  const { dispatch } = useContext(TodoContext);
 
   // console.log(`>>check key: `, todo);
   // let key = todo.id.toString();
   return (
     // <li onClick={() => deleteTodo(todo.id)} style={style} key={todo.id}>
     // <li key={key} style={style} onClick={deleteTodo.bind(this, todo.id)}>
-    <li onClick={() => deleteTodo(todo.id)} style={style}>
+    <li
+      onClick={() => {
+        dispatch({
+          type: DELETE_TODO,
+          payload: { id: todo.id },
+        });
+      }}
+      style={style}
+    >
       {todo.title}
     </li>
     //   <li key={todo.id} onClick={() => deleteTodo(todo.id)}>
