@@ -4,7 +4,8 @@
 
 - Lam ung dung CRUD voi Todos App
 - su dung React-Hooks: useStage, useContext,
-- Thay doi theme qua useContext
+- Thay doi theme, CRUD qua useContext
+- su dung useEffect: 1func luon chay mot lan, lan 2 tuy thuoc vao dieu kien;
 
 # Ghi chu
 
